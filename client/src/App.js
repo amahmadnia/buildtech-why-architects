@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Redirect,
+  Navigate,
   Route,
-  Switch,
+  Routes,
 } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 
 import { setCurrentUser, logoutUser } from './actions/authActions';
@@ -24,7 +24,7 @@ if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
   setAuthToken(token);
   // Decode token and get user info and exp
-  const decoded = jwt_decode(token);
+  const decoded = jwtDecode(token);
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
 
@@ -45,10 +45,10 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/" component={Test} />
-        </Switch>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Test />} />
+        </Routes>
       </Router>
     </Provider>
   );

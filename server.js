@@ -5,7 +5,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const upload = require('express-fileupload');
-const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 const passport = require('passport');
 const users = require('./routes/users');
@@ -23,8 +22,6 @@ app.use(
 app.use(bodyParser.json());
 // Data Sanitization against NoSQL Injection Attacks
 app.use(mongoSanitize());
-// XSS
-app.use(xss());
 
 app.use(passport.initialize());
 require('./config/passport')(passport);
@@ -34,12 +31,7 @@ app.use(upload());
 app.use('/api/admin', admin);
 app.use('/api/user', users);
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI);
 const connection = mongoose.connection;
 const port = process.env.PORT || 3000;
 connection.once('open', () => {

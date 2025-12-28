@@ -1,57 +1,40 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
   entry: './src/index.js',
   output: {
-    path: path.join(__dirname + '/public'),
+    path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.s?css$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
-      // {
-      //   test: /\.(woff(2)?|ttf|eot|svg|jpg)(\?v=\d+\.\d+\.\d+)?$/,
-      //   use: [
-      //     {
-      //       loader: 'file-loader',
-      //       options: {
-      //         name: '[name].[ext]',
-      //         outputPath: 'fonts/',
-      //       },
-      //     },
-      //   ],
-      // },
-      ////////////////////////
-      // {
-      //   test: /\.(jpg|png|gif|svg|pdf|ico)$/,
-      //   use: [
-      //     {
-      //       loader: 'file-loader',
-      //       options: {
-      //         name: '[path][name]-[hash:8].[ext]',
-      //       },
-      //     },
-      //   ],
-      // },
-      ////////////////////
       {
-        test: /\.(jpg|jpeg|png)$/,
-        use: {
-          loader: 'url-loader',
-        },
+        test: /\.(jpg|jpeg|png|gif|svg|ico)$/,
+        type: 'asset/inline',
       },
     ],
   },
   devServer: {
-    contentBase: './public',
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
     historyApiFallback: true,
+    port: 8080,
+    hot: true,
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
   },
 };

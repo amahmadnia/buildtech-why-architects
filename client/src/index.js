@@ -1,10 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router } from 'react-router';
-import { createBrowserHistory } from 'history';
-
+import { createRoot } from 'react-dom/client';
 import App from './App';
 
-const history = createBrowserHistory();
-
-ReactDOM.render(<App />, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<App />);
