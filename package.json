@@ -6,7 +6,8 @@
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "demo": "node server-demo.js"
   },
   "author": "",
   "license": "MIT",
