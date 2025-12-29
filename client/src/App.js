@@ -47,16 +47,11 @@ function App() {
       <Router>
         <Switch>
           <Route path="/login" component={Login} />
-          <Route path="/" component={Test} />
+          <PrivateRoute path="/" component={Dashboard} />
         </Switch>
       </Router>
     </Provider>
   );
-}
-// <PrivateRoute path="/" component={Dashboard} />
-
-function Test() {
-  return <h1>sicko test</h1>;
 }
 
 export default App;

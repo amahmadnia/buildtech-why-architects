@@ -27,34 +27,19 @@ function Dashboard({ match, auth, history }) {
   return (
     <Provider template={AlertTemplate} {...options}>
       <Alerts />
+      <Header user={auth.user} url={match.url} />
       <div className="az-content az-content-dashboard">
         <div className="container">
           <div className="az-content-body">
-            <Switch></Switch>
+            <Switch>
+              <PrivateRoute path="/admin" component={Admin} />
+              <PrivateRoute exact path="/" component={Users} />
+              <PrivateRoute path="/*" component={NotFound} />
+            </Switch>
           </div>
         </div>
       </div>
     </Provider>
-  );
-}
-// <Header user={auth.user} url={match.url} />
-// <PrivateRoute path="/admin" component={Admin} />
-// <PrivateRoute path="/" component={Users} />
-// <PrivateRoute path="/*" component={NotFound} />
-
-function Designer() {
-  return <div>Designer Route</div>;
-}
-function Executive() {
-  return <div>Executive Route</div>;
-}
-
-function X({ testClick }) {
-  return (
-    <div>
-      <h2>Admin Route</h2>
-      <button onClick={testClick}>test</button>
-    </div>
   );
 }
 
